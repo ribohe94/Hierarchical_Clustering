@@ -5,10 +5,26 @@
  */
 package modelo;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author c09141a
  */
 public class Individuo {
+
+    public Individuo(LinkedList<Double> listaValores) {
+        this.listaValores = listaValores;
+    }
+
+    public LinkedList<Double> getListaValores() {
+        return listaValores;
+    }
+
+    public void setListaValores(LinkedList<Double> listaValores) {
+        this.listaValores = listaValores;
+    }
     
+    //Atributos
+    private LinkedList<Double> listaValores;
 }

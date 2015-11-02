@@ -5,10 +5,29 @@
  */
 package modelo;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author c09141a
  */
 public class ContenedorIndividuo {
+
+    public ContenedorIndividuo() {
+    }
+
+    public ContenedorIndividuo(LinkedList<Individuo> individuos) {
+        this.individuos = individuos;
+    }
+
+    public LinkedList<Individuo> getIndividuos() {
+        return individuos;
+    }
+
+    public void setIndividuos(LinkedList<Individuo> individuos) {
+        this.individuos = individuos;
+    }
     
+    //Atributos
+    private LinkedList<Individuo> individuos;
 }

@@ -25,5 +25,6 @@ public class Individuo {
         this.listaValores = listaValores;
     }
     
-    LinkedList<Double> listaValores;
+    //Atributos
+    private LinkedList<Double> listaValores;
 }

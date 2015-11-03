@@ -45,7 +45,7 @@ public class GestorAlgoritmo {
     }
 
     public double[][] generarSubMatriz(double[][] matrizOriginal, int posX, int posY) {
-        double[][] aux = new double[matrizOriginal.length-1][matrizOriginal.length-1];
+        double[][] aux = new double[matrizOriginal.length - 1][matrizOriginal.length - 1];
         return aux;
     }
 

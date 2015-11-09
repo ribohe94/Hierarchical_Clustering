@@ -13,6 +13,10 @@ import java.util.LinkedList;
  */
 public class Individuo {
 
+    public Individuo()
+    {
+    listaValores = null;
+    }
     public Individuo(LinkedList<Double> listaValores) {
         this.listaValores = listaValores;
     }

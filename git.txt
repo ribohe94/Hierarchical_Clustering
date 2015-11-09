@@ -1,0 +1,18 @@
+git config --global user.name "Su nombre o lo que sea" //setea su nombre de usuario
+git config --global user.email "Su correo" //setea su correo 
+cd Directorio // selecciona el directorio donde se encuentra el proyecto
+git init //inicializa git en la carpeta
+git remote add origin [Link al repositorio] //declara el repositorio de git
+git add . // agrega todos los archivos al proyecto 
+git commit -m "Cambios" //Declara los cambios que se hicieron
+git commit -am "Cambios" //Empuja el commit directamente al repositorio
+git push origin master / git pull origin master // empuja o jala la informa cion del repositorio 
+
+//Comandos extra
+git checkout [numero de commit] //Regresar a versiones anteriores
+git checkout [numero de commit] -- [nombre del archivo] //Regresar a versiones anteriores de un archivo en especifico
+git reset HEAD [nombre del archivo] //Unstage file
+git mv [nombre del archivo] [Nuevo nombre del archivo] //Mover y/o cambiar de nombre del archivo
+git rm [nombre del archivo] //Eliminar archivo
+git diff //Ver diferencias
+git diff --staged //Ver diferencias entre staging area y el repositorio

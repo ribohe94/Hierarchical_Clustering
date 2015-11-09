@@ -44,11 +44,6 @@ public class GestorAlgoritmo {
         return matriz;
     }
 
-    public double[][] generarSubMatriz(double[][] matrizOriginal, int posX, int posY) {
-        double[][] aux = new double[matrizOriginal.length - 1][matrizOriginal.length - 1];
-        return aux;
-    }
-
     public double GetDistanciaEuclidea(Individuo in1, Individuo in2) {
         if (in1.equals(in2)) {
             return 0;

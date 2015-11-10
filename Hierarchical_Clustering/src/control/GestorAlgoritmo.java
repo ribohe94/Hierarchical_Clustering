@@ -41,6 +41,18 @@ public class GestorAlgoritmo {
                 }
             }
         }
+        double [][] matrizNueva = EliminarColumnaFila(posX, posY, matriz);
+        matrizNueva = EliminarColumnaFila(posY, posX, matrizNueva);
+        matrizNueva = AgregarFilaInicio(matrizNueva);
+        
+        for (int i = 0; i < matrizNueva.length; i++) {
+            for (int j = 0; j < matrizNueva.length; j++) {
+                
+                
+            }
+            
+        }
+        
         return matriz;
     }
 
@@ -57,20 +69,21 @@ public class GestorAlgoritmo {
     }
 
     public double[][] AgregarFilaInicio(double[][] matrizOriginal) {
-        double[][] matrizDestino = new double[matrizOriginal.length][matrizOriginal.length + 1];
+        double[][] matrizDestino = new double[matrizOriginal.length + 1][matrizOriginal.length + 1];
         for (int i = 0; i < matrizDestino.length; i++) {
             matrizDestino[i][0] = 0;
+            matrizDestino[0][i] = 0;
         }
 
-        for (int i = 1; i < matrizDestino.length + 1; i++) {
-            for (int j = 0; j < matrizDestino.length; j++) {
-                matrizDestino[j][i] = matrizOriginal[j][i - 1];
+        for (int i = 1; i < matrizDestino.length; i++) {
+            for (int j = 1; j < matrizDestino.length; j++) {
+                matrizDestino[j][i] = matrizOriginal[j-1][i-1];
             }
         }
 
         System.out.println("\n\n\n");
 
-        for (int i = 0; i < matrizDestino.length + 1; i++) {
+        for (int i = 0; i < matrizDestino.length; i++) {
             for (int j = 0; j < matrizDestino.length; j++) {
                 System.out.print("\t" + matrizDestino[j][i]);
             }

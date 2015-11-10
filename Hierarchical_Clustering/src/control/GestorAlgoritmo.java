@@ -56,4 +56,70 @@ public class GestorAlgoritmo {
         return sqrt(valor);
     }
 
+    public double[][] AgregarFilaInicio(double[][] matrizOriginal) {
+        double[][] matrizDestino = new double[matrizOriginal.length][matrizOriginal.length + 1];
+        for (int i = 0; i < matrizDestino.length; i++) {
+            matrizDestino[i][0] = 0;
+        }
+
+        for (int i = 1; i < matrizDestino.length + 1; i++) {
+            for (int j = 0; j < matrizDestino.length; j++) {
+                matrizDestino[j][i] = matrizOriginal[j][i - 1];
+            }
+        }
+
+        System.out.println("\n\n\n");
+
+        for (int i = 0; i < matrizDestino.length + 1; i++) {
+            for (int j = 0; j < matrizDestino.length; j++) {
+                System.out.print("\t" + matrizDestino[j][i]);
+            }
+            System.out.println("");
+        }
+
+        return matrizDestino;
+    }
+
+    public double[][] EliminarColumnaFila(int fil, int col, double[][] matrizOriginal) {
+
+        for (int i = 0; i < matrizOriginal.length; i++) {
+            for (int j = 0; j < matrizOriginal.length; j++) {
+                System.out.print("\t" + matrizOriginal[j][i]);
+            }
+            System.out.println("");
+        }
+
+        double destinationarr[][] = new double[matrizOriginal.length - 1][matrizOriginal.length - 1];
+
+        int p = 0;
+        for (int i = 0; i < matrizOriginal.length; ++i) {
+            if (i == fil) {
+                continue;
+            }
+
+            int q = 0;
+            for (int j = 0; j < matrizOriginal.length; ++j) {
+                if (j == col) {
+                    continue;
+                }
+
+                destinationarr[p][q] = matrizOriginal[i][j];
+                ++q;
+            }
+
+            ++p;
+        }
+
+        System.out.println("\n\n\n");
+
+        for (int i = 0; i < destinationarr.length; i++) {
+            for (int j = 0; j < destinationarr.length; j++) {
+                System.out.print("\t" + destinationarr[j][i]);
+            }
+            System.out.println("");
+        }
+
+        return destinationarr;
+    }
+
 }

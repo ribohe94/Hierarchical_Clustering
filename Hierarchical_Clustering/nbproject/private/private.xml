@@ -3,13 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/roger/Dropbox/Datos/hc/Hierarchical_Clustering/src/modelo/Modelo.java</file>
-            <file>file:/home/roger/Dropbox/Datos/hc/Hierarchical_Clustering/src/control/Control.java</file>
-            <file>file:/home/roger/Dropbox/Datos/hc/Hierarchical_Clustering/src/vista/VentanaPrincipal.java</file>
-            <file>file:/home/roger/Dropbox/Datos/hc/Hierarchical_Clustering/src/modelo/ContenedorIndividuo.java</file>
-            <file>file:/home/roger/Dropbox/Datos/hc/Hierarchical_Clustering/src/modelo/Individuo.java</file>
-            <file>file:/home/roger/Dropbox/Datos/hc/Hierarchical_Clustering/src/control/GestorAlgoritmo.java</file>
-            <file>file:/home/roger/Dropbox/Datos/hc/Hierarchical_Clustering/src/hierarchical_clustering/Hierarchical_Clustering.java</file>
+            <file>file:/I:/Documentos/NetBeansProjects/Hierarchical_Clustering/Hierarchical_Clustering/Hierarchical_Clustering/src/modelo/Individuo.java</file>
+            <file>file:/I:/Documentos/NetBeansProjects/Hierarchical_Clustering/Hierarchical_Clustering/Hierarchical_Clustering/src/hierarchical_clustering/Hierarchical_Clustering.java</file>
+            <file>file:/I:/Documentos/NetBeansProjects/Hierarchical_Clustering/Hierarchical_Clustering/Hierarchical_Clustering/src/control/GestorAlgoritmo.java</file>
         </group>
     </open-files>
 </project-private>

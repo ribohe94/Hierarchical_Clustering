@@ -30,19 +30,31 @@ public class Hierarchical_Clustering {
         };
 
         double[][] matrizDestino = matriz;
-
-        matrizDestino = ga.EliminarColumnaFila(0, 0, matrizDestino);
-        matrizDestino = ga.EliminarColumnaFila(3, 3, matrizDestino);
         
-        matrizDestino = ga.AgregarFilaInicio(matrizDestino);
-        matrizDestino = ga.completarNuevoIndividuo(matrizDestino, matriz, 0, 4);
-
+        matrizDestino = ga.eliminarFila(3, matrizDestino);
+        
         for (int i = 0; i < matrizDestino.length; i++) {
             for (int j = 0; j < matrizDestino.length; j++) {
                 System.out.print("\t" + matrizDestino[j][i]);
             }
             System.out.println("");
         }
+        
+
+//        matrizDestino = ga.generarMatriz(matriz);
+        
+//        matrizDestino = ga.EliminarColumnaFila(5, 5, matrizDestino);
+//        matrizDestino = ga.EliminarColumnaFila(4, 4, matrizDestino);
+//        
+//        matrizDestino = ga.AgregarFilaInicio(matrizDestino);
+//        matrizDestino = ga.completarNuevoIndividuo(matrizDestino, matriz, 0, 4);
+//
+//        for (int i = 0; i < matrizDestino.length; i++) {
+//            for (int j = 0; j < matrizDestino.length; j++) {
+//                System.out.print("\t" + matrizDestino[j][i]);
+//            }
+//            System.out.println("");
+//        }
 
 //        ga.AgregarFilaInicio(ga.EliminarColumnaFila(0, 0, matriz));
 //        ga.AgregarFilaInicio(ga.EliminarColumnaFila(5, 5, matriz));

@@ -77,13 +77,13 @@ public class GestorAlgoritmo {
         System.out.println("Generar Matriz");
         for (int i = 0; i < matrizDestino.length; i++) {
             for (int j = 0; j < matrizDestino.length; j++) {
-                System.out.print("\t" + matrizDestino[j][i]);
+                System.out.print("\t" + matrizDestino[i][j]);
             }
             System.out.println("");
         }
         System.out.println("\n\n\n");
 
-        return generarMatriz(matriz);
+        return generarMatriz(matrizDestino);
     }
 
     public double[][] completarNuevoIndividuo(double[][] matrizDestino, double[][] matrizOriginal, int posX, int posY) {
@@ -98,19 +98,22 @@ public class GestorAlgoritmo {
                 }
             }
 
-            if (matrizOriginal[posX][contador] > matrizOriginal[posY][contador]) {
-                matrizDestino[0][i] = matrizOriginal[posX][contador];
-                matrizDestino[i][0] = matrizOriginal[contador][posX];
-            } else {
-                matrizDestino[0][i] = matrizOriginal[posY][contador];
-                matrizDestino[i][0] = matrizOriginal[contador][posY];
+            if (contador < matrizOriginal.length) {
+                if (matrizOriginal[posX][contador] > matrizOriginal[posY][contador]) {
+
+                    matrizDestino[0][i] = matrizOriginal[posX][contador];
+                    matrizDestino[i][0] = matrizOriginal[contador][posX];
+                } else {
+                    matrizDestino[0][i] = matrizOriginal[posY][contador];
+                    matrizDestino[i][0] = matrizOriginal[contador][posY];
+                }
             }
         }
 
         System.out.println("Completar Nuevo individuo");
         for (int i = 0; i < matrizDestino.length; i++) {
             for (int j = 0; j < matrizDestino.length; j++) {
-                System.out.print("\t" + matrizDestino[j][i]);
+                System.out.print("\t" + matrizDestino[i][j]);
             }
             System.out.println("");
         }
@@ -147,7 +150,7 @@ public class GestorAlgoritmo {
         System.out.println("Agregar Fila");
         for (int i = 0; i < matrizDestino.length; i++) {
             for (int j = 0; j < matrizDestino.length; j++) {
-                System.out.print("\t" + matrizDestino[j][i]);
+                System.out.print("\t" + matrizDestino[i][j]);
             }
             System.out.println("");
         }
@@ -182,7 +185,7 @@ public class GestorAlgoritmo {
         System.out.println("Eliminar Columna");
         for (int i = 0; i < matrizDestino.length; i++) {
             for (int j = 0; j < matrizDestino.length; j++) {
-                System.out.print("\t" + matrizDestino[j][i]);
+                System.out.print("\t" + matrizDestino[i][j]);
             }
             System.out.println("");
         }
@@ -190,16 +193,6 @@ public class GestorAlgoritmo {
         System.out.println("\n\n\n");
 
         return matrizDestino;
-    }
-
-    public double[][] eliminarFila(int row, double[][] matrizOriginal) {
-        double[][] array = matrizOriginal;
-
-        List<double[]> l = new ArrayList<double[]>(Arrays.asList(array));
-
-        l.remove(row);
-        double[][] array2 = l.toArray(new double[][]{});
-        return array2;
     }
 
 }

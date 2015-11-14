@@ -5,10 +5,31 @@
  */
 package control;
 
+import java.util.Observer;
+import modelo.Modelo;
+
 /**
  *
  * @author c09141a
  */
 public class Control {
+
+    public Control(Modelo nuevosDatos) {
+        datos = nuevosDatos;
+    }
+
+    public Control() {
+        this(new Modelo());
+    }
     
+    public void registrar(Observer nuevoObservador) {
+        datos.addObserver(nuevoObservador);
+    }
+
+    public void actualizar(Object evento) {
+        datos.actualizar(evento);
+    }
+    
+    //Atributos
+    private Modelo datos;
 }

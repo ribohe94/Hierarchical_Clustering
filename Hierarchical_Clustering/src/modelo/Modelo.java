@@ -5,10 +5,16 @@
  */
 package modelo;
 
-/**
- *
- * @author c09141a
- */
-public class Modelo {
+import java.util.Observable;
+
+public class Modelo extends Observable{
+
+    public Modelo() {
+        
+    }
     
+    public void actualizar(Object evento){
+        setChanged();
+        notifyObservers(evento);
+    }
 }

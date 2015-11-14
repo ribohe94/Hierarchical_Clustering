@@ -5,13 +5,15 @@
  */
 package control;
 
+import java.io.PrintWriter;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
+import modelo.Cluster;
+import modelo.ContenedorCluster;
 import modelo.Individuo;
+import modelo.Relacion;
+import IO.Write;
 
 /**
  *
@@ -20,6 +22,19 @@ import modelo.Individuo;
 public class GestorAlgoritmo {
 
     public GestorAlgoritmo() {
+        ContenedorClusters = new ContenedorCluster();
+    }
+
+    //Genera la matriz inicial basandose en los valores originales de los individuos
+    public LinkedList<LinkedList<Relacion>> generarMatrizInicialLista(LinkedList<Individuo> individuos) {
+        LinkedList<LinkedList<Relacion>> matrizDinamica = new LinkedList<LinkedList<Relacion>>();
+        for (int i = 0; i < individuos.size(); i++) {
+            matrizDinamica.add(new LinkedList<>());
+            for (int j = 0; j < individuos.size(); j++) {
+                matrizDinamica.get(i).add(new Relacion(new Cluster("P" + String.valueOf(i)), new Cluster("P" + String.valueOf(j)), GetDistanciaEuclidea(individuos.get(i), individuos.get(j))));
+            }
+        }
+        return matrizDinamica;
     }
 
     //Genera la matriz inicial basandose en los valores originales de los individuos
@@ -31,6 +46,52 @@ public class GestorAlgoritmo {
             }
         }
         return multi;
+    }
+
+    //Metodo recursivo que genera la matriz final
+    public LinkedList<LinkedList<Relacion>> generarMatrizLista(double[][] matriz, LinkedList<LinkedList<Relacion>> matrizDinamica) {
+
+        LinkedList<LinkedList<Relacion>> matrizDestino = matrizDinamica;
+
+        if (matrizDestino.size() == 0) {
+            return matrizDestino;
+        }
+
+        //Primero buscamos el valor mas pequeno
+        double valor = matrizDestino.get(0).get(1).getValor();
+        int posX = 1, posY = 0;
+        for (int i = 0; i < matrizDestino.size(); i++) {
+            for (int j = 0; j < matrizDestino.size(); j++) {
+                if (valor > matrizDestino.get(i).get(j).getValor()) {
+                    posX = i;
+                    posY = j;
+                    valor = matrizDestino.get(i).get(j).getValor();
+                }
+
+            }
+
+        }
+
+        //Eliminamos las columnas y filas de donde se encuentra el valor mas pequeno
+        matrizDestino.remove(posX);
+        matrizDestino.remove(posY);
+        for (int i = 0; i < matrizDestino.get(i).size(); i++) {
+            matrizDestino.get(i).remove(posX);
+            matrizDestino.get(i).remove(posY);
+        }
+
+        //Agrego nuevas filas y columnas del nuevo cluster
+        matrizDestino.addFirst(new LinkedList<>());
+        for (int i = 0; i < matrizDestino.size() + 1; i++) {
+            matrizDestino.get(0).add(new Relacion());
+            if (i >= 1) {
+                matrizDestino.get(i).addFirst(new Relacion());
+            }
+        }
+
+        return matrizDestino;
+
+//        return generarMatriz(matrizDestino);
     }
 
     //Metodo recursivo que genera la matriz final
@@ -86,6 +147,39 @@ public class GestorAlgoritmo {
         return generarMatriz(matrizDestino);
     }
 
+    public LinkedList<LinkedList<Relacion>> completarNuevoIndividuoLista(LinkedList<LinkedList<Relacion>> matrizDinamica, LinkedList<LinkedList<Relacion>> matrizOriginalDinamica, int posX, int posY) {
+
+        int contador;
+        for (int i = 1; i < matrizDinamica.size(); i++) {
+            contador = i;
+
+            if (contador == posX || contador == posY) {
+                contador++;
+                if (contador == posX || contador == posY) {
+                    contador++;
+                }
+            }
+
+            if (contador < matrizOriginalDinamica.size()) {
+                if (matrizOriginalDinamica.get(posX).get(contador).getValor() > matrizOriginalDinamica.get(posY).get(contador).getValor()) {
+
+                    matrizDinamica.get(0).get(i).setValor(matrizOriginalDinamica.get(posX).get(contador).getValor());
+                    matrizDinamica.get(i).get(0).setValor(matrizOriginalDinamica.get(contador).get(posX).getValor());
+                    LinkedList<String> valores = matrizOriginalDinamica.get(posX).get(posY).getClusterX().getValores();
+                    for (int j = 0; j < matrizOriginalDinamica.get(posX).get(posX).getClusterX().getValores().size(); j++) {
+                        valores.add(matrizOriginalDinamica.get(posX).get(posX).getClusterX().getValores().get(i));
+                    }
+
+                } else {
+                    matrizDinamica.get(0).get(i).setValor(matrizOriginalDinamica.get(posY).get(contador).getValor());
+                    matrizDinamica.get(i).get(0).setValor(matrizOriginalDinamica.get(contador).get(posY).getValor());
+                }
+            }
+        }
+
+        return matrizDinamica;
+    }
+
     public double[][] completarNuevoIndividuo(double[][] matrizDestino, double[][] matrizOriginal, int posX, int posY) {
         int contador;
         for (int i = 1; i < matrizDestino.length; i++) {
@@ -128,7 +222,7 @@ public class GestorAlgoritmo {
         }
         double valor = 0;
         for (int i = 0; i < in1.getListaValores().size(); i++) {
-            valor += pow(in1.getListaValores().get(i) + in2.getListaValores().get(i), 2);
+            valor += pow(in1.getListaValores().get(i) - in2.getListaValores().get(i), 2);
 
         }
         return sqrt(valor);
@@ -189,10 +283,13 @@ public class GestorAlgoritmo {
             }
             System.out.println("");
         }
-
+        Write.write("\n\n\n", "Output.txt");
         System.out.println("\n\n\n");
 
         return matrizDestino;
     }
+
+    //Atributos
+    private ContenedorCluster ContenedorClusters;
 
 }

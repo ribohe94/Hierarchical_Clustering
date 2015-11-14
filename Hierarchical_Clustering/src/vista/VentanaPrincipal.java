@@ -5,9 +5,9 @@
  */
 package vista;
 
-
 import IO.Read;
 import control.Control;
+import control.GestorAlgoritmo;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -15,20 +15,25 @@ import java.awt.HeadlessException;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
+import modelo.Individuo;
 
 /**
  *
@@ -57,23 +62,16 @@ public class VentanaPrincipal extends JFrame implements Observer {
         panelPrincipal.setLayout(new GridBagLayout());
 
         //inicializamos TxtFields/Area
-        txtFile = new JTextField(10);
-        txtHilera = new JTextField(10);
-        txtaEstados = new JTextArea(1, 20);
-        txtaEstados.setEditable(false);
-        txtaTransiciones = new JTextArea(20, 20);
-        txtaTransiciones.setEditable(false);
+        txtFile = new JTextField(40);
+        txtFile.setEditable(false);
 
         //inicializamos Labels
         lbFile = new JLabel("Nombre de archivo: ");
-        lbHilera = new JLabel("Hilera: ");
-        lbEstados = new JLabel("Estados: ");
-        lbTransiciones = new JLabel("Transiciones: ");
         lbEstadoFinal = new JLabel("Estado: ");
         lbResultado = new JLabel("Esperando...");
 
         //incializamos botones
-        btnVerificar = new JButton("Verificar");
+        btnBuscar = new JButton("Buscar");
 
         /**
          * ** Agregamos elementos al panel. ***
@@ -85,27 +83,9 @@ public class VentanaPrincipal extends JFrame implements Observer {
         gbc.gridx = 1;
         gbc.gridy = 0;
         panelPrincipal.add(txtFile, gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        panelPrincipal.add(lbHilera, gbc);
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        panelPrincipal.add(txtHilera, gbc);
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        panelPrincipal.add(btnVerificar, gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        panelPrincipal.add(lbEstados, gbc);
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        panelPrincipal.add(txtaEstados, gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        panelPrincipal.add(lbTransiciones, gbc);
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        panelPrincipal.add(txtaTransiciones, gbc);
+        gbc.gridx = 3;
+        gbc.gridy = 0;
+        panelPrincipal.add(btnBuscar, gbc);
         gbc.gridx = 0;
         gbc.gridy = 4;
         panelPrincipal.add(lbEstadoFinal, gbc);
@@ -118,13 +98,53 @@ public class VentanaPrincipal extends JFrame implements Observer {
         /**
          * ** Action Listeners ***
          */
-        btnVerificar.addActionListener(new ActionListener() {
+        btnBuscar.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
+                try {
+                    JFileChooser chooser = new JFileChooser();
+                    chooser.showOpenDialog(null);
+                    File file = chooser.getSelectedFile();
+                    String filename = file.getAbsolutePath();
+                    gestorPrincipal.actualizar(filename);
+                    txtFile.setText(filename);
+
+                    Pattern p = Pattern.compile("\\d+\\.?\\d*|[a-zA-Z0-9]");
+                    Matcher m = p.matcher(Read.readFile(filename, StandardCharsets.UTF_8));
+                    int i = 0;
+                    int count = 0;
+                    LinkedList<Individuo> individuos = new LinkedList<>();
+                    individuos.add(new Individuo());
+                    while (m.find()) {
+                        if (m.group().equals("P")) {
+                            if (i > 0) {
+                                individuos.add(new Individuo());
+                                count++;
+                            }
+                        } else {
+                            individuos.get(count).getListaValores().add(Double.valueOf(m.group()));
+                        }
+
+                        i++;
+
+                    }
+                    PrintWriter out = new PrintWriter("Output.txt");
+                    out.print("");
+                    GestorAlgoritmo ga = new GestorAlgoritmo();
+                    double[][] matriz = ga.generarMatrizInicial(individuos);
+                    ga.generarMatriz(matriz);
+                    
+                    
+                    
+
+                } catch (IOException ex) {
+                    Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        });
+        }
+        );
 
     }
 
@@ -136,7 +156,7 @@ public class VentanaPrincipal extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        lbResultado.setText((String) arg);
     }
 
     //Atributos
@@ -145,18 +165,12 @@ public class VentanaPrincipal extends JFrame implements Observer {
     //JPanels
     private JPanel panelPrincipal;
     //Labels
-    private JLabel lbHilera;
     private JLabel lbFile;
-    private JLabel lbEstados;
-    private JLabel lbTransiciones;
     private JLabel lbEstadoFinal;
     private JLabel lbResultado;
     //Txt Fields
-    private JTextField txtHilera;
     private JTextField txtFile;
-    private JTextArea txtaEstados;
-    private JTextArea txtaTransiciones;
     //Buttons
-    private JButton btnVerificar;
+    private JButton btnBuscar;
 
 }

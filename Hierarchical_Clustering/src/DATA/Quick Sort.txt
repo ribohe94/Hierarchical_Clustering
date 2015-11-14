@@ -1,0 +1,54 @@
+import java.util.Arrays;
+
+/**
+ *
+ * @author Riccardo
+ */
+public class QuickSort {
+	public static void main(String[] args) {
+		int[] array = { 9, 2, 4, 7, 3, 7, 10 };
+		System.out.println(Arrays.toString(array));
+
+		quickSort(array, 0, array.length - 1);
+		System.out.println(Arrays.toString(array));
+	}
+ 
+	public static void quickSort(int[] array, int inicio, int fin) {
+		if (array == null || array.length == 0) //Si el arreglo es nulo o el taaño es 0 termine
+			return;
+ 
+		if (inicio >= fin) 
+			return;
+ 
+		int medio = inicio + (fin - inicio) / 2; // Mitad del arreglo
+		int pivote = array[medio]; //pivote en el medio del arreglo
+ 
+		// valores menores < pivote > valores mayores
+		int i = inicio;
+                int j = fin;
+		while (i <= j) {
+			while (array[i] < pivote) {
+				i++;
+			}
+ 
+			while (array[j] > pivote) {
+				j--;
+			}
+ 
+			if (i <= j) {
+				int temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+				i++;
+				j--;
+			}
+		}
+ 
+		// recursively sort two sub parts
+		if (inicio < j)
+			quickSort(array, inicio, j);
+ 
+		if (fin > i)
+			quickSort(array, i, fin);
+	}
+}

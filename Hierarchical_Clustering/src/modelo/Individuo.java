@@ -13,10 +13,10 @@ import java.util.LinkedList;
  */
 public class Individuo {
 
-    public Individuo()
-    {
-    listaValores = null;
+    public Individuo() {
+        listaValores = new LinkedList<Double>();
     }
+
     public Individuo(LinkedList<Double> listaValores) {
         this.listaValores = listaValores;
     }
@@ -36,9 +36,8 @@ public class Individuo {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    
+
     //Atributos
-    private String nombre; 
+    private String nombre;
     private LinkedList<Double> listaValores;
 }

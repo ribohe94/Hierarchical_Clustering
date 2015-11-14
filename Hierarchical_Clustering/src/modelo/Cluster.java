@@ -9,25 +9,40 @@ import java.util.LinkedList;
 
 /**
  *
- * @author c09141a
+ * @author Riccardo
  */
 public class Cluster {
 
     public Cluster() {
     }
 
-    public Cluster(LinkedList<Individuo> individuos) {
-        this.individuos = individuos;
+    public Cluster(LinkedList<String> valores) {
+        this.valores = valores;
     }
 
-    public LinkedList<Individuo> getIndividuos() {
-        return individuos;
+    public Cluster(String valor) {
+        this.valores.add(valor);
     }
 
-    public void setIndividuos(LinkedList<Individuo> individuos) {
-        this.individuos = individuos;
+    public LinkedList<String> getValores() {
+        return valores;
     }
-    
+
+    public void setValores(LinkedList<String> valores) {
+        this.valores = valores;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        valores.stream().forEach((individuo) -> {
+            sb.append(" ").append(individuo).append(" ");
+        });
+        sb.append("}");
+        return sb.toString();
+    }
+
     //Atributos
-    private LinkedList<Individuo> individuos;
+    private LinkedList<String> valores;
 }

@@ -11,12 +11,12 @@ import java.util.LinkedList;
  *
  * @author c09141a
  */
-public class ContenedorIndividuo {
+public class Cluster {
 
-    public ContenedorIndividuo() {
+    public Cluster() {
     }
 
-    public ContenedorIndividuo(LinkedList<Individuo> individuos) {
+    public Cluster(LinkedList<Individuo> individuos) {
         this.individuos = individuos;
     }
 

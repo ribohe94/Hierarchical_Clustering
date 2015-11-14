@@ -28,7 +28,17 @@ public class Individuo {
     public void setListaValores(LinkedList<Double> listaValores) {
         this.listaValores = listaValores;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
     
     //Atributos
+    private String nombre; 
     private LinkedList<Double> listaValores;
 }
